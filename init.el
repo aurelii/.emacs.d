@@ -33,7 +33,6 @@
   (menu-bar-mode 0) 
   (tool-bar-mode 0) 
   (scroll-bar-mode 0)
-  ;; Disable menu-bar and scroll-bar when emacs is in gui mode(OSX)
   ;; Show line numbers and format
   (global-display-line-numbers-mode t) 
   (setq linum-format "%d ")
