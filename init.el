@@ -24,7 +24,9 @@
     magit 
     :bind (("C-x g" . magit))) 
   (use-package 
-    elisp-format))
+    elisp-format) 
+  (use-package 
+    haskell-mode))
 
 (defun init () 
   "Initialize basic config"
