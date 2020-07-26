@@ -1,3 +1,4 @@
+(load-theme 'manoj-dark)
 ;; Make all commands of the "package" module present
 (require 'package)
 
@@ -41,8 +42,7 @@
   (show-paren-mode 1) 
   (electric-pair-mode t)
   ;; Switch buffers quickly with C-b <target-buffer>
-  (ido-mode 1) 
-  (load-theme 'manoj-dark))
+  (ido-mode 1))
 
 ;; declare hooks
 (defun shell-format-on-save () 
