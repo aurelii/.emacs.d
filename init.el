@@ -26,7 +26,9 @@
   (use-package 
     elisp-format) 
   (use-package 
-    haskell-mode))
+    haskell-mode) 
+  (use-package 
+    python-mode))
 
 (defun init () 
   "Initialize basic config"
@@ -46,6 +48,8 @@
   (ido-mode 1))
 
 ;; declare hooks
+;; TODO: there is for sure a more generic approach for generating hooks, in which
+;; we would be able to pass mode as a parameter and another function as second parameter
 (defun shell-format-on-save () 
   "run shfmt on save while in sh mode"
   (when (eq major-mode 'sh-mode) 
@@ -54,16 +58,30 @@
     (message (shell-command-to-string (format "shellcheck %s" buffer-file-name))) 
     (revert-buffer 
      :ignore-auto 
-     :noconfirm)))
+     :noconfirm)) 
+  (message(format "%s formatted!" buffer-file-name)))
+
+(defun python-format-on-save () 
+  "run autopep8 on save while in python-mode"
+  (when (eq major-mode 'python-mode) 
+    (shell-command-to-string (format "autopep8 --in-place --aggressive --aggressive %s"
+				     buffer-file-name)) 
+    (revert-buffer 
+     :ignore-auto 
+     :noconfirm)) 
+  (message (format "%s formatted!" buffer-file-name)))
 
 (defun elisp-format-on-save () 
-  "run elisp-format on save while in Emacs lisp mode"
+  "run elisp-format on save while in
+Emacs lisp mode"
   (when (eq major-mode 'emacs-lisp-mode) 
-    (elisp-format-buffer)))
+    (elisp-format-buffer)) 
+  (message (format "%s formatted!" buffer-file-name)))
 
 ;; initialize hooks
 (add-hook 'after-save-hook #'shell-format-on-save)
 (add-hook 'after-save-hook #'elisp-format-on-save)
+(add-hook 'after-save-hook #'python-format-on-save)
 
 (if (string-match "waw" system-name) 
     (progn
