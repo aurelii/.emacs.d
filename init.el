@@ -62,18 +62,18 @@
   (message(format "%s formatted!" buffer-file-name)))
 
 (defun python-format-on-save () 
-  "run autopep8 on save while in python-mode"
+  "run autopep8 on save while in
+python-mode"
   (when (eq major-mode 'python-mode) 
-    (shell-command-to-string (format "autopep8 --in-place --aggressive --aggressive %s"
-				     buffer-file-name)) 
+    (shell-command-to-string (format "autopep8 --in-place --aggressive
+--aggressive %s" buffer-file-name)) 
     (revert-buffer 
      :ignore-auto 
      :noconfirm)) 
   (message (format "%s formatted!" buffer-file-name)))
 
 (defun elisp-format-on-save () 
-  "run elisp-format on save while in
-Emacs lisp mode"
+  "run elisp-format on save while in Emacs lisp mode"
   (when (eq major-mode 'emacs-lisp-mode) 
     (elisp-format-buffer)) 
   (message (format "%s formatted!" buffer-file-name)))
@@ -82,6 +82,7 @@ Emacs lisp mode"
 (add-hook 'after-save-hook #'shell-format-on-save)
 (add-hook 'after-save-hook #'elisp-format-on-save)
 (add-hook 'after-save-hook #'python-format-on-save)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
 (if (string-match "waw" system-name) 
     (progn
@@ -90,7 +91,7 @@ Emacs lisp mode"
       (message "Remote Server Setup")) 
   (progn
     ;; Setup package autoloads, keybindings, and various mode configuration
-    (package-refresh-contents) 
+    ;; (package-refresh-contents)
     (unless (package-installed-p 'use-package) 
       (package-install 'use-package)) 
     (require 'use-package) 
