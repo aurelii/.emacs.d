@@ -13,15 +13,17 @@
 (setq package-check-signature nil)
 
 (defun set-use-packages () 
-  "Setup used packages"
+  "SETUP USED PACKAGES."
   ;; auto-complete
   (use-package 
-    company)
-  ;;(use-package
-  ;;  auto-complete
-  ;; :config (ac-config-default)
-  ;;  (setq ac-disable-faces nil)
-  ;;  (global-auto-complete-mode t))
+    company) 
+  (use-package 
+    flycheck) 
+  (use-package 
+    auto-complete 
+    :config (ac-config-default) 
+    (setq ac-disable-faces nil) 
+    (global-auto-complete-mode t)) 
   (use-package 
     magit 
     :bind (("C-x g" . magit))) 
@@ -31,9 +33,8 @@
     haskell-mode) 
   (use-package 
     python-mode))
-
 (defun init () 
-  "Initialize basic config"
+  "INITIALIZE BASIC CONFIG."
   ;; Disable startup screen
   (setq inhibit-startup-screen t)
   ;; Disable tool-bar
@@ -53,7 +54,7 @@
 ;; TODO: there is for sure a more generic approach for generating hooks, in which
 ;; we would be able to pass mode as a parameter and another function as second parameter
 (defun shell-format-on-save () 
-  "run shfmt on save while in sh mode"
+  "RUN SHFMT ON SAVE WHILE IN 'SH-MODE'."
   (when (eq major-mode 'sh-mode) 
     (shell-command-to-string (format "shfmt -i 2 -bn -w %s" buffer-file-name))
     ;; TODO: is it possible to output shellcheck output to seperate buffer??
@@ -64,8 +65,7 @@
   (message(format "%s formatted!" buffer-file-name)))
 
 (defun python-format-on-save () 
-  "run autopep8 on save while in
-python-mode"
+  "RUN AUTOPEP8 ON SAVE WHILE IN `'PYTHON-MODE`."
   (when (eq major-mode 'python-mode) 
     (shell-command-to-string (format "autopep8 --in-place --aggressive
 --aggressive %s" buffer-file-name)) 
@@ -75,7 +75,7 @@ python-mode"
   (message (format "%s formatted!" buffer-file-name)))
 
 (defun elisp-format-on-save () 
-  "run elisp-format on save while in Emacs lisp mode"
+  "RUN ELISP-FORMAT ON SAVE WHILE IN `EMACS-LISP-MODE`."
   (when (eq major-mode 'emacs-lisp-mode) 
     (elisp-format-buffer)) 
   (message (format "%s formatted!" buffer-file-name)))
@@ -85,6 +85,12 @@ python-mode"
 (add-hook 'after-save-hook #'elisp-format-on-save)
 (add-hook 'after-save-hook #'python-format-on-save)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'flycheck-mode)
+(add-hook 'sh-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
+(add-hook 'python-mode-hook 'flycheck-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (if (string-match "waw" system-name) 
