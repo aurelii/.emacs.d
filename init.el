@@ -16,10 +16,12 @@
   "Setup used packages"
   ;; auto-complete
   (use-package 
-    auto-complete 
-    :config (ac-config-default) 
-    (setq ac-disable-faces nil) 
-    (global-auto-complete-mode t)) 
+    company)
+  ;;(use-package
+  ;;  auto-complete
+  ;; :config (ac-config-default)
+  ;;  (setq ac-disable-faces nil)
+  ;;  (global-auto-complete-mode t))
   (use-package 
     magit 
     :bind (("C-x g" . magit))) 
@@ -83,6 +85,7 @@ python-mode"
 (add-hook 'after-save-hook #'elisp-format-on-save)
 (add-hook 'after-save-hook #'python-format-on-save)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 
 (if (string-match "waw" system-name) 
     (progn
