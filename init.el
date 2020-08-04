@@ -20,6 +20,8 @@
   (use-package 
     flycheck) 
   (use-package 
+    ag) 
+  (use-package 
     auto-complete 
     :config (ac-config-default) 
     (setq ac-disable-faces nil) 
