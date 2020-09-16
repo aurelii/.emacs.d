@@ -33,7 +33,9 @@
   (use-package 
     haskell-mode) 
   (use-package 
-    python-mode))
+    python-mode) 
+  (use-package 
+    lua-mode))
 (defun init () 
   "INITIALIZE BASIC CONFIG."
   ;; Disable startup screen
@@ -94,6 +96,7 @@
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 (add-hook 'python-mode-hook 'flycheck-mode)
+(add-hook 'lua-mode-hook 'flycheck-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 (add-hook 'c++-mode-hook (lambda () 
 			   (set (make-local-variable 'compile-command) 
