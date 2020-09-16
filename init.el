@@ -1,4 +1,3 @@
-(load-theme 'manoj-dark)
 ;; Make all commands of the "package" module present
 (require 'package)
 
@@ -39,6 +38,8 @@
   "INITIALIZE BASIC CONFIG."
   ;; Disable startup screen
   (setq inhibit-startup-screen t)
+  ;; Fix flycheck lags
+  (setq flycheck-check-syntax-automatically '(save mode-enable))
   ;; Disable tool-bar
   (menu-bar-mode 0) 
   (tool-bar-mode 0) 
@@ -94,6 +95,10 @@
 (add-hook 'emacs-lisp-mode-hook 'flycheck-mode)
 (add-hook 'python-mode-hook 'flycheck-mode)
 (add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'c++-mode-hook (lambda () 
+			   (set (make-local-variable 'compile-command) 
+				(format "g++ -g -Wall -O0 -std=c++11 %s" (buffer-name)))))
+
 
 (if (string-match "waw" system-name) 
     (progn
